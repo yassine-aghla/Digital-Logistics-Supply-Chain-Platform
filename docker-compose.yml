@@ -1,0 +1,26 @@
+services:
+  db:
+    container_name: Digital_logistics
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rajabarca
+      POSTGRES_DB: DigitalLogistics_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+
+  pgadmin:
+    container_name: pgadmin-DigitalLogistics
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: yassine@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - "8081:80"
+
+volumes:
+  db_data:
