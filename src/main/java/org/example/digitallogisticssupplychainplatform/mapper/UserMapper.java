@@ -30,6 +30,4 @@ public class UserMapper {
                 .id(user.getId())
                 .role(user.getRole()).active(user.isActive()).build();
     }
-
-
 }
