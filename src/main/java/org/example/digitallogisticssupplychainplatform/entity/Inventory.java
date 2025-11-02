@@ -24,4 +24,8 @@ public class Inventory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouse_id", nullable = false)
     private WareHouse warehouse;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 }
