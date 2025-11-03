@@ -9,7 +9,6 @@ public interface ProductService {
     List<ProductDTO> findAllActive();
     Optional<ProductDTO> findById(Long id);
     Optional<ProductDTO> findByCode(String code);
-    List<ProductDTO> findByUserId(Long userId);
     List<ProductDTO> findByCategory(String category);
     ProductDTO save(ProductDTO productDTO);
     ProductDTO update(Long id, ProductDTO productDTO);

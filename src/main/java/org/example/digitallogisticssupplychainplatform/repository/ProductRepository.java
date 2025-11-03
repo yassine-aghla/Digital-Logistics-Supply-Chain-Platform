@@ -14,14 +14,10 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByCode(String code);
-    List<Product> findByActiveTrue();
     List<Product> findByCategory(String category);
-    List<Product> findByUserId(Long userId);
     boolean existsByCode(String code);
 
-    @Query("SELECT p FROM Product p LEFT JOIN FETCH p.user WHERE p.id = :id")
-    Optional<Product> findByIdWithUser(@Param("id") Long id);
 
-    @Query("SELECT p FROM Product p LEFT JOIN FETCH p.user WHERE p.status = 'ACTIVE'")
-    List<Product> findAllActiveWithUser();
+    @Query("SELECT p FROM Product p WHERE p.status = 'ACTIVE'")
+    List<Product> findAllActive();
 }

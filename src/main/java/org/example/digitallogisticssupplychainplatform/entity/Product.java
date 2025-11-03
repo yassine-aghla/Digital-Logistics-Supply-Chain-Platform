@@ -50,10 +50,6 @@ public class Product {
     @Column(name = "profile_type")
     private String profile;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "created_date")
     @Builder.Default
     private LocalDateTime createdDate = LocalDateTime.now();

@@ -14,5 +14,8 @@ public class InventoryDTO {
     private Long warehouseId;
     private String warehouseCode;
     private String warehouseName;
-
+    private Long productId;
+    private String productDescription;
+    private String productName;
+    private String productCode;
 }

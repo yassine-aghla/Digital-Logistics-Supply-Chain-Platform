@@ -25,6 +25,13 @@ public class InventoryMapper {
             dto.setWarehouseName(inventory.getWarehouse().getName());
         }
 
+        if(inventory.getProduct()!=null){
+            dto.setProductId(inventory.getProduct().getId());
+            dto.setProductName(inventory.getProduct().getName());
+            dto.setProductDescription(inventory.getProduct().getDescription());
+            dto.setProductCode(inventory.getProduct().getCode());
+        }
+
         return dto;
     }
 

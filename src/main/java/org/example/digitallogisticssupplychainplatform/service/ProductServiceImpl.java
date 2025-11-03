@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<ProductDTO> findAllActive() {
-        return productRepository.findAllActiveWithUser().stream()
+        return productRepository.findAllActive().stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public Optional<ProductDTO> findById(Long id) {
-        return productRepository.findByIdWithUser(id)
+        return productRepository.findById(id)
                 .map(productMapper::toDto);
     }
 
@@ -52,14 +52,6 @@ public class ProductServiceImpl implements ProductService {
     public Optional<ProductDTO> findByCode(String code) {
         return productRepository.findByCode(code)
                 .map(productMapper::toDto);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ProductDTO> findByUserId(Long userId) {
-        return productRepository.findByUserId(userId).stream()
-                .map(productMapper::toDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -76,11 +68,7 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Un produit avec le code " + productDTO.getCode() + " existe déjà");
         }
 
-        User user = userRepository.findById(productDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id: " + productDTO.getUserId()));
-
         Product product = productMapper.toEntity(productDTO);
-        product.setUser(user);
 
         Product saved = productRepository.save(product);
         return productMapper.toDto(saved);
@@ -95,9 +83,6 @@ public class ProductServiceImpl implements ProductService {
                         throw new RuntimeException("Un produit avec le code " + productDTO.getCode() + " existe déjà");
                     }
 
-                    User user = userRepository.findById(productDTO.getUserId())
-                            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id: " + productDTO.getUserId()));
-
                     existingProduct.setCode(productDTO.getCode());
                     existingProduct.setName(productDTO.getName());
                     existingProduct.setDescription(productDTO.getDescription());
@@ -110,7 +95,6 @@ public class ProductServiceImpl implements ProductService {
                     existingProduct.setActive(productDTO.getActive());
                     existingProduct.setIndex(productDTO.getIndex());
                     existingProduct.setProfile(productDTO.getProfile());
-                    existingProduct.setUser(user);
                     existingProduct.setLastModifiedDate(LocalDateTime.now());
 
                     Product updated = productRepository.save(existingProduct);

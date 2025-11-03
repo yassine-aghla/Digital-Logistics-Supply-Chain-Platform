@@ -26,8 +26,6 @@ public class ProductMapper {
                 .active(product.getActive())
                 .index(product.getIndex())
                 .profile(product.getProfile())
-                .userId(product.getUser() != null ? product.getUser().getId() : null)
-                .userFullName(product.getUser() != null ? product.getUser().getUsername() : null)
                 .status(product.getStatus() != null ? product.getStatus().name() : null)
                 .build();
     }

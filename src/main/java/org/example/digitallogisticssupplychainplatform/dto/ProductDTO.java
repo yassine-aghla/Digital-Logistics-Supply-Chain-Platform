@@ -26,9 +26,6 @@ public class ProductDTO {
 
     @Builder.Default
     private Boolean index = false;
-
     private String profile;
-    private Long userId;
-    private String userFullName;
     private String status;
 }

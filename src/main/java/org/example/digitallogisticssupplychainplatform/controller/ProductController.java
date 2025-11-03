@@ -22,14 +22,10 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts(
             @RequestParam(required = false) Boolean active,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) Long userId) {
+            @RequestParam(required = false) String category) {
 
         List<ProductDTO> products;
-
-        if (userId != null) {
-            products = productService.findByUserId(userId);
-        } else if (category != null) {
+        if (category != null) {
             products = productService.findByCategory(category);
         } else if (active != null && active) {
             products = productService.findAllActive();
