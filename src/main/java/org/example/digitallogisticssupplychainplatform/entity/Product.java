@@ -61,4 +61,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private ProductStatus status = ProductStatus.ACTIVE;
+
+    public boolean isActive() {
+        return active;
+    }
 }

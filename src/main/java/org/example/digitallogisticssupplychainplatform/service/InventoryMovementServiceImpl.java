@@ -89,7 +89,6 @@ public class InventoryMovementServiceImpl implements InventoryMovementService {
         Inventory inventory = inventoryRepository.findById(movementDTO.getInventoryId())
                 .orElseThrow(() -> new RuntimeException("Inventaire non trouvé avec l'id: " + movementDTO.getInventoryId()));
 
-        // Validation de la quantité
         if (movementDTO.getQuantity() <= 0) {
             throw new RuntimeException("La quantité doit être positive");
         }

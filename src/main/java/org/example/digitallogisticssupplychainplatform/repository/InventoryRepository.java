@@ -22,6 +22,11 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     @Query("SELECT i FROM Inventory i LEFT JOIN FETCH i.warehouse")
     List<Inventory> findAllWithWarehouse();
-
+    @Query("SELECT i FROM Inventory i " +
+            "LEFT JOIN FETCH i.warehouse " +
+            "LEFT JOIN FETCH i.product " +
+            "WHERE i.product.id = :productId AND i.warehouse.id = :warehouseId")
+    Inventory findByProductIdAndWarehouseId(@Param("productId") Long productId,
+                                            @Param("warehouseId") Long warehouseId);
 
 }

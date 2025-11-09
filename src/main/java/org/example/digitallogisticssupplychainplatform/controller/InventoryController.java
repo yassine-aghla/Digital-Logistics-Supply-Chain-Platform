@@ -11,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/inventories")
@@ -26,8 +29,11 @@ public class InventoryController {
 
     @GetMapping
     public ResponseEntity<List<InventoryDTO>> getAllInventories() {
-        List<InventoryDTO> inventories = inventoryService.findAll();
-        return ResponseEntity.ok(inventories);
+
+            List<InventoryDTO> inventories = inventoryService.findAll();
+            return ResponseEntity.ok(inventories);
+
+
     }
 
 

@@ -3,6 +3,9 @@ package org.example.digitallogisticssupplychainplatform.service;
 
 
 import org.example.digitallogisticssupplychainplatform.dto.InventoryDTO;
+import org.example.digitallogisticssupplychainplatform.dto.InventoryMovementDTO;
+import org.example.digitallogisticssupplychainplatform.entity.InventoryMovement;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +17,6 @@ public interface InventoryService {
     InventoryDTO update(Long id, InventoryDTO inventoryDTO);
     void delete(Long id);
     InventoryDTO updateQuantities(Long id, Integer qtyOnHand, Integer qtyReserved);
+
+
 }

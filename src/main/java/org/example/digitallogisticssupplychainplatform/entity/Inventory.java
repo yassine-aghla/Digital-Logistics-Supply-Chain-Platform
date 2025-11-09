@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "inventories")
+@Table(name = "inventories",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"product_id", "warehouse_id"}
+        ))
 @Setter
 @Getter
 @Builder

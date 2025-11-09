@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.example.digitallogisticssupplychainplatform.entity.Inventory;
-import org.example.digitallogisticssupplychainplatform.entity.WareHouse;
+import org.example.digitallogisticssupplychainplatform.entity.*;
 import org.example.digitallogisticssupplychainplatform.dto.InventoryDTO;
+import org.example.digitallogisticssupplychainplatform.exception.ResourceNotFoundException;
 import org.example.digitallogisticssupplychainplatform.mapper.InventoryMapper;
 import org.example.digitallogisticssupplychainplatform.repository.InventoryRepository;
+import org.example.digitallogisticssupplychainplatform.repository.ProductRepository;
 import org.example.digitallogisticssupplychainplatform.repository.WareHouseRepository;
 import org.example.digitallogisticssupplychainplatform.service.InventoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final WareHouseRepository warehouseRepository;
+    private final ProductRepository productRepository;
     private final InventoryMapper inventoryMapper;
 
 
@@ -62,6 +65,13 @@ public class InventoryServiceImpl implements InventoryService {
         Inventory inventory = inventoryMapper.toEntity(inventoryDTO);
         inventory.setWarehouse(warehouse);
 
+        if (inventory.getQtyOnHand() == null) {
+            inventory.setQtyOnHand(0);
+        }
+        if (inventory.getQtyReserved() == null) {
+            inventory.setQtyReserved(0);
+        }
+
         Inventory saved = inventoryRepository.save(inventory);
         return inventoryMapper.toDto(saved);
     }
@@ -85,9 +95,13 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void delete(Long id) {
-        if (!inventoryRepository.existsById(id)) {
-            throw new RuntimeException("Inventaire non trouvé avec l'id: " + id);
+        Inventory inventory = inventoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory not found with id: " + id));
+
+        if (inventory.getQtyReserved() > 0) {
+            throw new RuntimeException("Cannot delete inventory with reserved stock");
         }
+
         inventoryRepository.deleteById(id);
     }
 
@@ -103,4 +117,5 @@ public class InventoryServiceImpl implements InventoryService {
                 })
                 .orElseThrow(() -> new RuntimeException("Inventaire non trouvé avec l'id: " + id));
     }
+
 }
