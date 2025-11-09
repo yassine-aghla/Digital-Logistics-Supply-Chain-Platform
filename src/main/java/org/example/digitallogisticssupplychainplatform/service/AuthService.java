@@ -20,13 +20,14 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final UserService userService;
-    private final UserMapper userMapper;
+    private final SimpleSessionService sessionService;
 
      public UserResponseDto registre(UserDto userDto){
          userDto.setRole(Role.CLIENT);
          UserResponseDto userRegistred=userService.createUser(userDto);
          return userRegistred;
      }
+
     public LoginResponseDto authenticate(LoginRequestDto loginRequest) {
         Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
 
@@ -38,13 +39,11 @@ public class AuthService {
 
         User user = userOptional.get();
 
-
         if (!user.isActive()) {
             return LoginResponseDto.builder()
                     .message("Votre compte est désactivé")
                     .build();
         }
-
 
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return LoginResponseDto.builder()
@@ -52,8 +51,7 @@ public class AuthService {
                     .build();
         }
 
-
-        String sessionToken = generateSimpleToken();
+        String sessionToken = sessionService.createSession(user);
 
         return LoginResponseDto.builder()
                 .userId(user.getId())
@@ -66,12 +64,8 @@ public class AuthService {
                 .build();
     }
 
-    private String generateSimpleToken() {
-        return "SESSION_" + UUID.randomUUID().toString() + "_" + System.currentTimeMillis();
-    }
-
     public boolean validateToken(String token) {
-        return token != null && token.startsWith("SESSION_");
+        return sessionService.isValidToken(token);
     }
 
 

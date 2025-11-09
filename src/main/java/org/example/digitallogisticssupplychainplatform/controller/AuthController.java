@@ -60,4 +60,16 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
+
+    // Dans AuthController
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            String actualToken = token.substring(7);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Déconnexion réussie");
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.badRequest().body("Token manquant");
+    }
 }
