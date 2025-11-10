@@ -136,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
               throw new RuntimeException("il ya deja une commande lie a ce produit");
           }
 
-          if(productRepository.findProductReserved(id)){
+          if(productRepository.existsBackorderedLine(id)){
               throw new RuntimeException("le produit est deja reserve");
           }
 

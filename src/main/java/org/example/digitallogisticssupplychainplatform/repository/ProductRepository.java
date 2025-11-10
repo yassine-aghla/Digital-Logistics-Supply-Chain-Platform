@@ -20,12 +20,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.status = 'ACTIVE'")
     List<Product> findAllActive();
 
-    @Query("SELECT COUNT(sol) FROM SalesOrderLine sol WHERE sol.product = :id")
-    Long countBySalesProductId(@Param("productId") Long id);
+    @Query("SELECT COUNT(sol) FROM SalesOrderLine sol WHERE sol.product.id = :id")
+    long countBySalesProductId(@Param("id") Long id);
 
-    @Query(value = "SELECT so.*, sol.* FROM sales_orders so " +
-            "LEFT JOIN sales_order_lines sol ON so.id = sol.sales_order_id " +
-            "WHERE so.reserved_at IS NULL and where sol.product=:id",
-            nativeQuery = true)
-    boolean findProductReserved(@Param("id") Long id);
+    @Query("SELECT COUNT(sol) > 0 FROM SalesOrderLine sol " +
+            "WHERE sol.product.id = :id AND sol.backordered = true")
+    boolean existsBackorderedLine(@Param("id") Long id);
 }
