@@ -110,18 +110,6 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
-    @Override
-    public ProductDTO deactivate(Long id) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setActive(false);
-                    product.setStatus(ProductStatus.INACTIVE);
-                    product.setLastModifiedDate(LocalDateTime.now());
-                    Product updated = productRepository.save(product);
-                    return productMapper.toDto(updated);
-                })
-                .orElseThrow(() -> new RuntimeException("Produit non trouvé avec l'id: " + id));
-    }
 
     @Override
     public ProductDTO activate(Long id) {
@@ -140,5 +128,26 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public boolean existsByCode(String code) {
         return productRepository.existsByCode(code);
+    }
+
+    @Override
+    public ProductDTO deactivate(Long id) {
+          if(productRepository.countBySalesProductId(id)>0){
+              throw new RuntimeException("il ya deja une commande lie a ce produit");
+          }
+
+          if(productRepository.findProductReserved(id)){
+              throw new RuntimeException("le produit est deja reserve");
+          }
+
+        return productRepository.findById(id)
+                .map(product -> {
+                    product.setActive(false);
+                    product.setStatus(ProductStatus.INACTIVE);
+                    product.setLastModifiedDate(LocalDateTime.now());
+                    Product updated = productRepository.save(product);
+                    return productMapper.toDto(updated);
+                })
+                .orElseThrow(() -> new RuntimeException("Produit non trouvé avec l'id: " + id));
     }
 }
