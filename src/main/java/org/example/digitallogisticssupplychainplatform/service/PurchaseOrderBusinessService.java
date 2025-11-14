@@ -70,7 +70,7 @@ public class PurchaseOrderBusinessService {
                 .totalLinesProcessed(inboundMovements.size())
                 .inboundMovements(inboundMovements)
                 .fullyReceived(true)
-                .message("✓ Bon de commande entièrement reçu")
+                .message("Bon de commande entièrement reçu")
                 .receivedAt(LocalDateTime.now())
                 .build();
     }
@@ -100,7 +100,7 @@ public class PurchaseOrderBusinessService {
         return ApprovalResult.builder()
                 .purchaseOrderId(purchaseOrderId)
                 .status(PurchaseOrderStatus.CONFIRMED.name())
-                .message("✓ Bon de commande approuvé et prêt pour réception")
+                .message("Bon de commande approuvé et prêt pour réception")
                 .approvedAt(LocalDateTime.now())
                 .build();
     }

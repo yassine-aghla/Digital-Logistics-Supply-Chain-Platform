@@ -22,9 +22,8 @@ public class SimpleAuthFilter implements Filter {
     private final List<String> publicEndpoints = Arrays.asList(
             "/api/auth/login",
             "/api/auth/registre",
-            "/api/auth/validate-token",
-            "/swagger-ui/index.html",
-            "/swagger-ui.html"
+            "/api/auth/validate-token"
+
     );
 
     @Override

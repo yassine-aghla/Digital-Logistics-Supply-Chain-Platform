@@ -39,7 +39,7 @@ public class ShipmentBusinessController {
         return ResponseEntity.ok(StatusUpdateResponse.builder()
                 .shipmentId(shipmentId)
                 .newStatus(ShipmentStatus.IN_TRANSIT)
-                .message("✓ Expédition en transit")
+                .message("Expédition en transit")
                 .build());
     }
 
@@ -50,7 +50,7 @@ public class ShipmentBusinessController {
         return ResponseEntity.ok(StatusUpdateResponse.builder()
                 .shipmentId(shipmentId)
                 .newStatus(ShipmentStatus.DELIVERED)
-                .message("✓ Expédition livrée")
+                .message(" Expédition livrée")
                 .build());
     }
 

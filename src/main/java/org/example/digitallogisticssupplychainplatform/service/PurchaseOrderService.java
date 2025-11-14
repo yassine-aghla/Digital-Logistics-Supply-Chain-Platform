@@ -34,7 +34,6 @@ public class PurchaseOrderService {
 
         PurchaseOrder purchaseOrder = purchaseOrderMapper.toEntity(request, supplier, warehouseManager);
 
-        // Add order lines
         for (PurchaseOrderLineRequest lineRequest : request.getOrderLines()) {
             Product product = productRepository.findById(lineRequest.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + lineRequest.getProductId()));

@@ -100,33 +100,12 @@ public class InventoryMovementServiceImpl implements InventoryMovementService {
         if (movementDTO.getOccurredAt() == null) {
             movement.setOccurredAt(LocalDateTime.now());
         }
-        updateInventoryQuantities(inventory, movement);
 
         InventoryMovement saved = movementRepository.save(movement);
         return movementMapper.toDto(saved);
     }
 
-    private void updateInventoryQuantities(Inventory inventory, InventoryMovement movement) {
-        switch (movement.getType()) {
-            case INBOUND:
-                inventory.setQtyOnHand(inventory.getQtyOnHand() + movement.getQuantity());
-                break;
-            case OUTBOUND:
-                int available = inventory.getQtyOnHand() - inventory.getQtyReserved();
-                if (movement.getQuantity() > available) {
-                    throw new RuntimeException("Stock insuffisant. Disponible: " + available + ", Demandé: " + movement.getQuantity());
-                }
-                inventory.setQtyOnHand(inventory.getQtyOnHand() - movement.getQuantity());
-                break;
-            case ADJUSTMENT:
-                int newQtyOnHand = inventory.getQtyOnHand() + movement.getQuantity();
-                if (newQtyOnHand < inventory.getQtyReserved()) {
-                    throw new RuntimeException("Ajustement impossible: le stock physique ne peut pas être inférieur au stock réservé");
-                }
-                inventory.setQtyOnHand(newQtyOnHand);
-                break;
-        }
-    }
+
 
     @Override
     public void deleteMovement(Long id) {

@@ -33,7 +33,6 @@ public class InventoryServiceImpl implements InventoryService {
     private final InventoryMapper inventoryMapper;
 
 
-
     @Override
     @Transactional(readOnly = true)
     public List<InventoryDTO> findAll() {
@@ -61,9 +60,11 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryDTO save(InventoryDTO inventoryDTO) {
         WareHouse warehouse = warehouseRepository.findById(inventoryDTO.getWarehouseId())
                 .orElseThrow(() -> new RuntimeException("Entrepôt non trouvé avec l'id: " + inventoryDTO.getWarehouseId()));
-
+        Product product = productRepository.findById(inventoryDTO.getProductId())
+                .orElseThrow(()->new RuntimeException("Product non trouve avec lid"));
         Inventory inventory = inventoryMapper.toEntity(inventoryDTO);
         inventory.setWarehouse(warehouse);
+        inventory.setProduct(product);
 
         if (inventory.getQtyOnHand() == null) {
             inventory.setQtyOnHand(0);

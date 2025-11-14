@@ -26,16 +26,12 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
 
-
     @GetMapping
     public ResponseEntity<List<InventoryDTO>> getAllInventories() {
 
             List<InventoryDTO> inventories = inventoryService.findAll();
             return ResponseEntity.ok(inventories);
-
-
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<InventoryDTO> getInventoryById(@PathVariable Long id) {
@@ -45,11 +41,12 @@ public class InventoryController {
     }
 
     @PostMapping
-    public ResponseEntity<InventoryDTO> createInventory(@Valid @RequestBody InventoryDTO inventoryDTO) {
+    public ResponseEntity<?> createInventory(@Valid @RequestBody InventoryDTO inventoryDTO) {
         try {
             InventoryDTO saved = inventoryService.save(inventoryDTO);
             return new ResponseEntity<>(saved, HttpStatus.CREATED);
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

@@ -10,6 +10,8 @@ import org.example.digitallogisticssupplychainplatform.exception.ResourceNotFoun
 import org.example.digitallogisticssupplychainplatform.exception.StockUnavailableException;
 import org.example.digitallogisticssupplychainplatform.repository.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -47,7 +49,6 @@ public class SalesOrderBusinessService {
 
         for (SalesOrderLine line : order.getOrderLines()) {
             try {
-
                 if (!line.getProduct().isActive()) {
                     throw new BusinessException("Produit " + line.getProduct().getCode() + " inactif");
                 }
@@ -60,12 +61,36 @@ public class SalesOrderBusinessService {
                         "SO-" + orderId
                 );
 
-                successMessages.add("✓ " + line.getProduct().getName() + ": " +
+                successMessages.add( line.getProduct().getName() + ": " +
                         line.getQuantity() + " unités réservées");
 
-            } catch (StockUnavailableException e) {
-                fullyReserved = false;
+                Inventory inventory = inventoryRepository.findByProductIdAndWarehouseId(
+                        line.getProduct().getId(), warehouseId);
 
+                Integer available = inventory != null ?
+                        (inventory.getQtyOnHand() - inventory.getQtyReserved()) : 0;
+
+                if (available < line.getQuantity()) {
+                    fullyReserved = false;
+                    Integer shortage = line.getQuantity() - available;
+
+                    line.setBackordered(true);
+
+                    backorders.add(BackorderInfo.builder()
+                            .productCode(line.getProduct().getCode())
+                            .productName(line.getProduct().getName())
+                            .requestedQty(line.getQuantity())
+                            .availableQty(available)
+                            .shortageQty(shortage)
+                            .build());
+
+                    log.info("⚠ BACKORDER: {} unités manquantes pour {}",
+                            shortage, line.getProduct().getName());
+                }
+
+            } catch (StockUnavailableException e) {
+
+                fullyReserved = false;
 
                 Inventory inventory = inventoryRepository.findByProductIdAndWarehouseId(
                         line.getProduct().getId(), warehouseId);
@@ -81,9 +106,7 @@ public class SalesOrderBusinessService {
                         .availableQty(available)
                         .shortageQty(shortage)
                         .build());
-
                 line.setBackordered(true);
-
 
                 if (available > 0) {
                     inventoryBusinessService.reserveStock(
@@ -92,7 +115,7 @@ public class SalesOrderBusinessService {
                             available,
                             "SO-" + orderId + "-PARTIAL"
                     );
-                    successMessages.add("⚠ " + line.getProduct().getName() + ": " +
+                    successMessages.add( line.getProduct().getName() + ": " +
                             available + " unités réservées (partiel)");
                 }
             }
@@ -111,11 +134,10 @@ public class SalesOrderBusinessService {
                 .successMessages(successMessages)
                 .backorders(backorders)
                 .message(fullyReserved ?
-                        "✓ Commande entièrement réservée" :
-                        "⚠ Commande partiellement réservée (" + backorders.size() + " backorder(s))")
+                        "Commande entièrement réservée" :
+                        "Commande partiellement réservée (" + backorders.size() + " backorder(s))")
                 .build();
     }
-
 
     public ShipmentResult shipOrder(Long orderId, Long warehouseId) {
         SalesOrder order = salesOrderRepository.findById(orderId)

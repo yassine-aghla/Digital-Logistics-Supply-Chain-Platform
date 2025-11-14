@@ -49,17 +49,21 @@ public class InventoryBusinessService {
 
         Inventory inventory = getOrCreateInventory(productId, warehouseId);
         Integer available = calculateAvailable(inventory);
-        if (available < quantity) {
-            throw new StockUnavailableException(
-                    String.format("Stock insuffisant. Disponible: %d, Demandé: %d", available, quantity)
-            );
+
+        if (available > 0) {
+            Integer toReserve = Math.min(available, quantity);
+            inventory.setQtyReserved(inventory.getQtyReserved() + toReserve);
+            inventoryRepository.save(inventory);
+            log.info("Stock réservé: {} unités du produit {} dans l'entrepôt {} - Référence: {}",
+                    toReserve, productId, warehouseId, referenceDoc);
         }
 
-        inventory.setQtyReserved(inventory.getQtyReserved() + quantity);
-        inventoryRepository.save(inventory);
 
-        log.info("Stock réservé: {} unités du produit {} dans l'entrepôt {} - Référence: {}",
-                quantity, productId, warehouseId, referenceDoc);
+        if (available < quantity) {
+            log.warn("Stock insuffisant pour {}: disponible {} demandé {}",
+                    productId, available, quantity);
+
+        }
     }
 
     public void releaseReservation(Long productId, Long warehouseId, Integer quantity, String referenceDoc) {
@@ -94,7 +98,6 @@ public class InventoryBusinessService {
         Inventory inventory = getOrCreateInventory(productId, warehouseId);
 
         inventory.setQtyOnHand(inventory.getQtyOnHand() + quantity);
-        inventoryRepository.save(inventory);
         InventoryMovementDTO movementDTO = InventoryMovementDTO.builder()
                 .inventoryId(inventory.getId())
                 .type(MovementType.INBOUND.name())
@@ -125,7 +128,7 @@ public class InventoryBusinessService {
                             available, quantity)
             );
         }
-
+        inventory.setQtyOnHand(inventory.getQtyOnHand() - quantity);
         InventoryMovementDTO movementDTO = InventoryMovementDTO.builder()
                 .inventoryId(inventory.getId())
                 .type(MovementType.OUTBOUND.name())
@@ -211,14 +214,6 @@ public class InventoryBusinessService {
         if (inventory == null) return true;
 
         return calculateAvailable(inventory) <= 0;
-    }
-
-    public InventoryDTO getInventoryWithAvailability(Long inventoryId) {
-        Inventory inventory = inventoryRepository.findById(inventoryId)
-                .orElseThrow(() -> new BusinessException("Inventaire introuvable"));
-
-        InventoryDTO dto = inventoryMapper.toDto(inventory);
-        return dto;
     }
 
 
