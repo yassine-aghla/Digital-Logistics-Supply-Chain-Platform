@@ -25,7 +25,6 @@ pipeline {
             }
             post {
                 always {
-                    // التصحيح: استخدام النمط الصحيح لملفات XML
                     junit 'target/surefire-reports/*.xml'
                 }
             }
@@ -34,7 +33,6 @@ pipeline {
         stage('Package') {
             steps {
                 sh 'mvn package -DskipTests'
-                // التصحيح: استخدام النمط الصحيح لملفات JAR
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
