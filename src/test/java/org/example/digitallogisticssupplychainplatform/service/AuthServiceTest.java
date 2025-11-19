@@ -152,6 +152,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName(" authenticate - Mot de passe incorrect")
+
     void testAuthenticateWrongPassword() {
         when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
 
