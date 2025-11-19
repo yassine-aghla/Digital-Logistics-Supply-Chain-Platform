@@ -271,7 +271,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ createMovement - Inventaire non trouvé")
+    @DisplayName(" createMovement - Inventaire non trouvé")
     void testCreateMovementInventoryNotFound() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(999L);
@@ -289,7 +289,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ createMovement - Quantité négative")
+    @DisplayName(" createMovement - Quantité négative")
     void testCreateMovementNegativeQuantity() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(1L);
@@ -307,7 +307,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ createMovement - Quantité zéro")
+    @DisplayName(" createMovement - Quantité zéro")
     void testCreateMovementZeroQuantity() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(1L);
@@ -329,7 +329,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ deleteMovement - Supprimer mouvement")
+    @DisplayName(" deleteMovement - Supprimer mouvement")
     void testDeleteMovement() {
         when(movementRepository.existsById(1L)).thenReturn(true);
         doNothing().when(movementRepository).deleteById(1L);
@@ -341,7 +341,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ deleteMovement - Mouvement non trouvé")
+    @DisplayName(" deleteMovement - Mouvement non trouvé")
     void testDeleteMovementNotFound() {
         when(movementRepository.existsById(999L)).thenReturn(false);
 
@@ -358,7 +358,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ Error messages - Mouvement non trouvé")
+    @DisplayName("Error messages - Mouvement non trouvé")
     void testErrorMessageMovementNotFound() {
         when(movementRepository.findByIdWithDetails(1L)).thenReturn(null);
 
@@ -370,7 +370,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ Error messages - Inventaire non trouvé")
+    @DisplayName("Error messages - Inventaire non trouvé")
     void testErrorMessageInventoryNotFound() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(1L);
@@ -387,7 +387,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ Error messages - Quantité positive")
+    @DisplayName("Error messages - Quantité positive")
     void testErrorMessageQuantityPositive() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(1L);
