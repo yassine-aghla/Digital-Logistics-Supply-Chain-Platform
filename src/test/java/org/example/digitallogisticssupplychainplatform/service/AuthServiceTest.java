@@ -77,7 +77,7 @@ class AuthServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ register - Enregistrer un nouvel utilisateur")
+    @DisplayName(" register - Enregistrer un nouvel utilisateur")
     void testRegisterSuccess() {
         when(userService.createUser(any(UserDto.class))).thenReturn(testUserResponseDto);
 
@@ -94,7 +94,7 @@ class AuthServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ authenticate - Authentification réussie")
+    @DisplayName("authenticate - Authentification réussie")
     void testAuthenticateSuccess() {
         when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
         when(sessionService.createSession(testUser)).thenReturn("session-token-123");
@@ -118,7 +118,7 @@ class AuthServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("❌ authenticate - Email non trouvé")
+    @DisplayName(" authenticate - Email non trouvé")
     void testAuthenticateEmailNotFound() {
         when(userRepository.findByEmail("unknown@test.com")).thenReturn(Optional.empty());
 
@@ -132,7 +132,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("❌ authenticate - Compte désactivé")
+    @DisplayName(" authenticate - Compte désactivé")
     void testAuthenticateAccountDisabled() {
         User disabledUser = new User();
         disabledUser.setId(1L);
@@ -151,7 +151,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("❌ authenticate - Mot de passe incorrect")
+    @DisplayName(" authenticate - Mot de passe incorrect")
     void testAuthenticateWrongPassword() {
         when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
 
@@ -172,7 +172,7 @@ class AuthServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ validateToken - Token valide")
+    @DisplayName(" validateToken - Token valide")
     void testValidateTokenValid() {
         when(sessionService.isValidToken("valid-token")).thenReturn(true);
 
@@ -183,7 +183,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("✓ validateToken - Token invalide")
+    @DisplayName("validateToken - Token invalide")
     void testValidateTokenInvalid() {
         when(sessionService.isValidToken("invalid-token")).thenReturn(false);
 
@@ -198,7 +198,7 @@ class AuthServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ Opérations multiples - Enregistrer et authentifier")
+    @DisplayName("Opérations multiples - Enregistrer et authentifier")
     void testRegisterAndAuthenticate() {
         // Register
         when(userService.createUser(any(UserDto.class))).thenReturn(testUserResponseDto);
@@ -214,7 +214,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Opérations multiples - Authentifier et valider le token")
+    @DisplayName(" Opérations multiples - Authentifier et valider le token")
     void testAuthenticateAndValidateToken() {
         // Authenticate
         when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
@@ -230,7 +230,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Opérations multiples - Cas d'erreur complète")
+    @DisplayName("Opérations multiples - Cas d'erreur complète")
     void testErrorFlow() {
         // Try to authenticate with wrong password
         when(userRepository.findByEmail("test@test.com")).thenReturn(Optional.of(testUser));
@@ -254,7 +254,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Opérations multiples - Admin vs Client roles")
+    @DisplayName("Opérations multiples - Admin vs Client roles")
     void testAuthenticateDifferentRoles() {
         // Client authentication
         when(userRepository.findByEmail("client@test.com")).thenReturn(Optional.of(testUser));

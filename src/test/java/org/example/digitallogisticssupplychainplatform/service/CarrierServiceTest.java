@@ -125,7 +125,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findById - Récupérer transporteur par ID")
+    @DisplayName(" findById - Récupérer transporteur par ID")
     void testFindById() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.of(testCarrier));
         when(carrierMapper.toDto(testCarrier)).thenReturn(testCarrierDTO);
@@ -138,7 +138,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("❌ findById - Transporteur non trouvé")
+    @DisplayName(" findById - Transporteur non trouvé")
     void testFindByIdNotFound() {
         when(carrierRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -154,7 +154,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ update - Mettre à jour transporteur")
+    @DisplayName("update - Mettre à jour transporteur")
     void testUpdate() {
         CarrierDTO updateDTO = new CarrierDTO();
         updateDTO.setCode("FDX");
@@ -196,7 +196,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("❌ update - Transporteur non trouvé")
+    @DisplayName(" update - Transporteur non trouvé")
     void testUpdateNotFound() {
         when(carrierRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -213,7 +213,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ delete - Supprimer transporteur")
+    @DisplayName(" delete - Supprimer transporteur")
     void testDelete() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.of(testCarrier));
         doNothing().when(carrierRepository).delete(testCarrier);
@@ -225,7 +225,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("❌ delete - Transporteur non trouvé")
+    @DisplayName(" delete - Transporteur non trouvé")
     void testDeleteNotFound() {
         when(carrierRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -242,7 +242,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ updateStatus - Changer statut à ACTIVE")
+    @DisplayName(" updateStatus - Changer statut à ACTIVE")
     void testUpdateStatusActive() {
         Carrier statusChangedCarrier = new Carrier();
         statusChangedCarrier.setId(1L);
@@ -265,7 +265,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("✓ updateStatus - Changer statut à INACTIVE")
+    @DisplayName(" updateStatus - Changer statut à INACTIVE")
     void testUpdateStatusInactive() {
         Carrier statusChangedCarrier = new Carrier();
         statusChangedCarrier.setId(1L);
@@ -288,7 +288,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("❌ updateStatus - Transporteur non trouvé")
+    @DisplayName(" updateStatus - Transporteur non trouvé")
     void testUpdateStatusNotFound() {
         when(carrierRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -305,7 +305,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ Error messages - Transporteur non trouvé (findById)")
+    @DisplayName(" Error messages - Transporteur non trouvé (findById)")
     void testErrorMessageCarrierNotFoundFindById() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -317,7 +317,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Error messages - Transporteur non trouvé (update)")
+    @DisplayName("Error messages - Transporteur non trouvé (update)")
     void testErrorMessageCarrierNotFoundUpdate() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -329,7 +329,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Error messages - Transporteur non trouvé (delete)")
+    @DisplayName("Error messages - Transporteur non trouvé (delete)")
     void testErrorMessageCarrierNotFoundDelete() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -341,7 +341,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Error messages - Transporteur non trouvé (updateStatus)")
+    @DisplayName("Error messages - Transporteur non trouvé (updateStatus)")
     void testErrorMessageCarrierNotFoundUpdateStatus() {
         when(carrierRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -357,7 +357,7 @@ class CarrierServiceTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ Data validation - Tous les champs dans save")
+    @DisplayName("Data validation - Tous les champs dans save")
     void testDataIntegritySave() {
         when(carrierMapper.toEntity(testCarrierDTO)).thenReturn(testCarrier);
         when(carrierRepository.save(testCarrier)).thenReturn(testCarrier);
@@ -377,7 +377,7 @@ class CarrierServiceTest {
     }
 
     @Test
-    @DisplayName("✓ Data validation - Tous les champs mis à jour")
+    @DisplayName("Data validation - Tous les champs mis à jour")
     void testDataIntegrityUpdate() {
         CarrierDTO updateDTO = new CarrierDTO();
         updateDTO.setCode("UPS");

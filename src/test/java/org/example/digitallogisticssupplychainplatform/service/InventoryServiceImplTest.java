@@ -91,7 +91,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findAll - Récupérer tous les inventaires")
+    @DisplayName(" findAll - Récupérer tous les inventaires")
     void testFindAll() {
         List<Inventory> inventories = new ArrayList<>();
         inventories.add(testInventory);
@@ -108,7 +108,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findAll - Liste vide")
+    @DisplayName(" findAll - Liste vide")
     void testFindAllEmpty() {
         when(inventoryRepository.findAllWithWarehouse()).thenReturn(new ArrayList<>());
 
@@ -120,7 +120,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findAll - Plusieurs inventaires")
+    @DisplayName(" findAll - Plusieurs inventaires")
     void testFindAllMultiple() {
         Inventory inventory2 = new Inventory();
         inventory2.setId(2L);
@@ -150,7 +150,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByWarehouseId - Récupérer par entrepôt")
+    @DisplayName(" findByWarehouseId - Récupérer par entrepôt")
     void testFindByWarehouseId() {
         List<Inventory> inventories = new ArrayList<>();
         inventories.add(testInventory);
@@ -166,7 +166,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findByWarehouseId - Entrepôt sans inventaire")
+    @DisplayName(" findByWarehouseId - Entrepôt sans inventaire")
     void testFindByWarehouseIdEmpty() {
         when(inventoryRepository.findByWarehouseId(999L)).thenReturn(new ArrayList<>());
 
@@ -178,7 +178,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findByWarehouseId - Plusieurs inventaires par entrepôt")
+    @DisplayName(" findByWarehouseId - Plusieurs inventaires par entrepôt")
     void testFindByWarehouseIdMultiple() {
         Inventory inventory2 = new Inventory();
         inventory2.setId(2L);
@@ -206,7 +206,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findById - Récupérer inventaire par ID")
+    @DisplayName(" findById - Récupérer inventaire par ID")
     void testFindById() {
         when(inventoryRepository.findById(1L)).thenReturn(Optional.of(testInventory));
         when(inventoryMapper.toDto(testInventory)).thenReturn(testInventoryDTO);
@@ -219,7 +219,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findById - Inventaire non trouvé")
+    @DisplayName("findById - Inventaire non trouvé")
     void testFindByIdNotFound() {
         when(inventoryRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -234,7 +234,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ save - Créer un nouvel inventaire")
+    @DisplayName(" save - Créer un nouvel inventaire")
     void testSaveSuccess() {
         when(warehouseRepository.findById(1L)).thenReturn(Optional.of(testWarehouse));
         when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
@@ -253,7 +253,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ save - Entrepôt non trouvé")
+    @DisplayName(" save - Entrepôt non trouvé")
     void testSaveWarehouseNotFound() {
         testInventoryDTO.setWarehouseId(999L);
 
@@ -266,7 +266,7 @@ class InventoryServiceImplTest {
 
 
     @Test
-    @DisplayName("✓ save - Initialiser quantités nulles")
+    @DisplayName(" save - Initialiser quantités nulles")
     void testSaveWithNullQuantities() {
         Inventory inventoryWithNull = new Inventory();
         inventoryWithNull.setId(1L);
@@ -291,7 +291,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ update - Mettre à jour inventaire")
+    @DisplayName(" update - Mettre à jour inventaire")
     void testUpdateSuccess() {
         InventoryDTO updateDTO = new InventoryDTO();
         updateDTO.setQtyOnHand(150);
@@ -323,7 +323,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ update - Inventaire non trouvé")
+    @DisplayName(" update - Inventaire non trouvé")
     void testUpdateNotFound() {
         InventoryDTO updateDTO = new InventoryDTO();
         updateDTO.setQtyOnHand(150);
@@ -335,7 +335,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ update - Entrepôt non trouvé")
+    @DisplayName(" update - Entrepôt non trouvé")
     void testUpdateWarehouseNotFound() {
         InventoryDTO updateDTO = new InventoryDTO();
         updateDTO.setQtyOnHand(150);
@@ -353,7 +353,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ delete - Supprimer inventaire")
+    @DisplayName(" delete - Supprimer inventaire")
     void testDeleteSuccess() {
         testInventory.setQtyReserved(0);
 
@@ -367,7 +367,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ delete - Inventaire non trouvé")
+    @DisplayName(" delete - Inventaire non trouvé")
     void testDeleteNotFound() {
         when(inventoryRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -377,7 +377,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ delete - Stock réservé présent")
+    @DisplayName(" delete - Stock réservé présent")
     void testDeleteWithReservedStock() {
         testInventory.setQtyReserved(20);
 
@@ -393,7 +393,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ updateQuantities - Mettre à jour quantités")
+    @DisplayName(" updateQuantities - Mettre à jour quantités")
     void testUpdateQuantitiesSuccess() {
         Inventory updatedInventory = new Inventory();
         updatedInventory.setId(1L);
@@ -419,7 +419,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ updateQuantities - Inventaire non trouvé")
+    @DisplayName(" updateQuantities - Inventaire non trouvé")
     void testUpdateQuantitiesNotFound() {
         when(inventoryRepository.findById(999L)).thenReturn(Optional.empty());
 
@@ -428,7 +428,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ updateQuantities - Mettre à zéro")
+    @DisplayName(" updateQuantities - Mettre à zéro")
     void testUpdateQuantitiesToZero() {
         Inventory updatedInventory = new Inventory();
         updatedInventory.setId(1L);
@@ -456,7 +456,7 @@ class InventoryServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ Opérations multiples - Créer et récupérer")
+    @DisplayName(" Opérations multiples - Créer et récupérer")
     void testCreateAndGet() {
         when(warehouseRepository.findById(1L)).thenReturn(Optional.of(testWarehouse));
         when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
@@ -474,7 +474,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ Opérations multiples - Créer, mettre à jour et récupérer")
+    @DisplayName(" Opérations multiples - Créer, mettre à jour et récupérer")
     void testCreateUpdateAndGet() {
         when(warehouseRepository.findById(1L)).thenReturn(Optional.of(testWarehouse));
         when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
@@ -505,7 +505,7 @@ class InventoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ Opérations multiples - Créer et mettre à jour quantités")
+    @DisplayName(" Opérations multiples - Créer et mettre à jour quantités")
     void testCreateAndUpdateQuantities() {
         when(warehouseRepository.findById(1L)).thenReturn(Optional.of(testWarehouse));
         when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));

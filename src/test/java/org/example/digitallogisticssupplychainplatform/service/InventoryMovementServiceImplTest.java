@@ -70,7 +70,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findAll - Récupérer tous les mouvements")
+    @DisplayName(" findAll - Récupérer tous les mouvements")
     void testFindAll() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -87,7 +87,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findAll - Liste vide")
+    @DisplayName(" findAll - Liste vide")
     void testFindAllEmpty() {
         when(movementRepository.findAllWithDetails()).thenReturn(new ArrayList<>());
 
@@ -103,7 +103,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findById - Récupérer mouvement par ID")
+    @DisplayName(" findById - Récupérer mouvement par ID")
     void testFindById() {
         when(movementRepository.findByIdWithDetails(1L)).thenReturn(testMovement);
         when(movementMapper.toDto(testMovement)).thenReturn(testMovementDTO);
@@ -116,7 +116,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("❌ findById - Mouvement non trouvé")
+    @DisplayName(" findById - Mouvement non trouvé")
     void testFindByIdNotFound() {
         when(movementRepository.findByIdWithDetails(999L)).thenReturn(null);
 
@@ -132,7 +132,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByInventoryId - Mouvements par inventaire")
+    @DisplayName(" findByInventoryId - Mouvements par inventaire")
     void testFindByInventoryId() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -152,7 +152,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByProductId - Mouvements par produit")
+    @DisplayName(" findByProductId - Mouvements par produit")
     void testFindByProductId() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -172,7 +172,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByWarehouseId - Mouvements par entrepôt")
+    @DisplayName(" findByWarehouseId - Mouvements par entrepôt")
     void testFindByWarehouseId() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -192,7 +192,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByType - Mouvements par type IN")
+    @DisplayName(" findByType - Mouvements par type IN")
     void testFindByTypeIN() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -208,7 +208,7 @@ class InventoryMovementServiceImplTest {
     }
 
     @Test
-    @DisplayName("✓ findByType - Mouvements par type OUT")
+    @DisplayName(" findByType - Mouvements par type OUT")
     void testFindByTypeOUT() {
         List<InventoryMovement> movements = new ArrayList<>();
         movements.add(testMovement);
@@ -228,7 +228,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ findByDateRange - Mouvements par plage de dates")
+    @DisplayName(" findByDateRange - Mouvements par plage de dates")
     void testFindByDateRange() {
         LocalDateTime startDate = LocalDateTime.now().minusDays(7);
         LocalDateTime endDate = LocalDateTime.now();
@@ -250,7 +250,7 @@ class InventoryMovementServiceImplTest {
     // ============================================================
 
     @Test
-    @DisplayName("✓ createMovement - Créer mouvement avec succès")
+    @DisplayName(" createMovement - Créer mouvement avec succès")
     void testCreateMovement() {
         InventoryMovementDTO newMovementDTO = new InventoryMovementDTO();
         newMovementDTO.setInventoryId(1L);
