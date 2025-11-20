@@ -29,18 +29,22 @@ pipeline {
                 }
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
-                // This step pulls the server config by name directly
                 withSonarQubeEnv('SonarQubeServer') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=Digital-Logistics-Supply-Chain-Platform -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'                }
+                    sh """
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=digital-logistics-platform \
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                    """
+                }
             }
         }
 
         stage('Quality Gate') {
             steps {
                 script {
-                    // Wait for SonarQube to finish and check the gate status
                     timeout(time: 5, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                     }
