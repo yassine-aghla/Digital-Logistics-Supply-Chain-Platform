@@ -63,9 +63,7 @@ class SalesOrderControllerTest {
         testOrders.add(testOrder2);
     }
 
-    // ============================================================
-    // TEST: GET /api/sales-orders
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET / - Récupérer toutes les commandes")
@@ -93,9 +91,7 @@ class SalesOrderControllerTest {
         verify(salesOrderService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: GET /api/sales-orders/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer commande par ID")
@@ -119,9 +115,6 @@ class SalesOrderControllerTest {
         verify(salesOrderService, times(1)).findById(2L);
     }
 
-    // ============================================================
-    // TEST: GET /api/sales-orders/client/{clientId}
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /client/{clientId} - Récupérer commandes par client")
@@ -154,9 +147,7 @@ class SalesOrderControllerTest {
         verify(salesOrderService, times(1)).findByClientId(2L);
     }
 
-    // ============================================================
-    // TEST: POST /api/sales-orders
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST / - Créer une commande")
@@ -164,7 +155,6 @@ class SalesOrderControllerTest {
         SalesOrderCreateDTO createDTO = new SalesOrderCreateDTO();
         createDTO.setClientId(1L);
 
-        // Use SalesOrderLineCreateDTO instead of SalesOrderLineDTO
         List<SalesOrderLineCreateDTO> orderLines = new ArrayList<>();
         SalesOrderLineCreateDTO line1 = new SalesOrderLineCreateDTO();
         line1.setProductId(1L);
@@ -192,7 +182,6 @@ class SalesOrderControllerTest {
         SalesOrderCreateDTO createDTO = new SalesOrderCreateDTO();
         createDTO.setClientId(2L);
 
-        // Use SalesOrderLineCreateDTO instead of SalesOrderLineDTO
         List<SalesOrderLineCreateDTO> orderLines = new ArrayList<>();
         SalesOrderLineCreateDTO line1 = new SalesOrderLineCreateDTO();
         line1.setProductId(2L);
@@ -213,9 +202,7 @@ class SalesOrderControllerTest {
 
         verify(salesOrderService, times(1)).create(any(SalesOrderCreateDTO.class));
     }
-    // ============================================================
-    // TEST: PUT /api/sales-orders/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour une commande")
@@ -263,9 +250,7 @@ class SalesOrderControllerTest {
         verify(salesOrderService, times(1)).update(eq(2L), any(SalesOrderUpdateDTO.class));
     }
 
-    // ============================================================
-    // TEST: DELETE /api/sales-orders/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer une commande")

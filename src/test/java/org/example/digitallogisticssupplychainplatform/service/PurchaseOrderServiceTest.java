@@ -93,13 +93,11 @@ class PurchaseOrderServiceTest {
         testPurchaseOrderDTO.setWarehouseManagerId(1L);
     }
 
-    // ============================================================
-    // TEST: createPurchaseOrder
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ createPurchaseOrder - Créer commande d'achat avec succès")
-    void testCreatePurchaseOrderSuccess() throws Exception {
+    void testCreatePurchaseOrderSuccess()  {
         CreatePurchaseOrderRequest request = new CreatePurchaseOrderRequest();
         request.setSupplierId(1L);
         request.setWarehouseManagerId(1L);
@@ -108,7 +106,7 @@ class PurchaseOrderServiceTest {
 
         when(supplierRepository.findById(1L)).thenReturn(Optional.of(testSupplier));
         when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-        when(purchaseOrderMapper.toEntity(eq(request), eq(testSupplier), eq(testUser)))
+        when(purchaseOrderMapper.toEntity((request), testSupplier, testUser))
                 .thenReturn(testPurchaseOrder);
         when(purchaseOrderRepository.save(any(PurchaseOrder.class))).thenReturn(testPurchaseOrder);
         when(purchaseOrderMapper.toDTO(testPurchaseOrder)).thenReturn(testPurchaseOrderDTO);
@@ -123,7 +121,7 @@ class PurchaseOrderServiceTest {
     }
 
     @Test
-    @DisplayName("❌ createPurchaseOrder - Fournisseur non trouvé")
+    @DisplayName("createPurchaseOrder - Fournisseur non trouvé")
     void testCreatePurchaseOrderSupplierNotFound() {
         CreatePurchaseOrderRequest request = new CreatePurchaseOrderRequest();
         request.setSupplierId(999L);
@@ -153,7 +151,7 @@ class PurchaseOrderServiceTest {
 
     @Test
     @DisplayName("✓ createPurchaseOrder - Créer avec lignes de commande")
-    void testCreatePurchaseOrderWithLines() throws Exception {
+    void testCreatePurchaseOrderWithLines()  {
         PurchaseOrderLineRequest lineRequest = new PurchaseOrderLineRequest();
         lineRequest.setProductId(1L);
         lineRequest.setQuantity(10);
@@ -166,10 +164,8 @@ class PurchaseOrderServiceTest {
         when(supplierRepository.findById(1L)).thenReturn(Optional.of(testSupplier));
         when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
         when(productRepository.findById(1L)).thenReturn(Optional.of(testProduct));
-        when(purchaseOrderMapper.toEntity(eq(request), eq(testSupplier), eq(testUser)))
+        when(purchaseOrderMapper.toEntity(request,testSupplier, testUser))
                 .thenReturn(testPurchaseOrder);
-
-        // Mock toLineEntity to return a non-null object
         org.example.digitallogisticssupplychainplatform.entity.PurchaseOrderLine mockLine =
                 new org.example.digitallogisticssupplychainplatform.entity.PurchaseOrderLine();
         when(purchaseOrderMapper.toLineEntity(any(PurchaseOrderLineRequest.class), eq(testProduct)))

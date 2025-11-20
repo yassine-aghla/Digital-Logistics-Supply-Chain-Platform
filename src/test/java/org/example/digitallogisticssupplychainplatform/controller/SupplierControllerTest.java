@@ -60,9 +60,7 @@ class SupplierControllerTest {
         testSuppliers.add(testSupplier2);
     }
 
-    // ============================================================
-    // TEST: POST /api/suppliers
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST / - Créer un fournisseur")
@@ -96,9 +94,6 @@ class SupplierControllerTest {
         verify(supplierService, times(1)).save(any(SupplierDTO.class));
     }
 
-    // ============================================================
-    // TEST: GET /api/suppliers
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET / - Récupérer tous les fournisseurs")
@@ -128,9 +123,7 @@ class SupplierControllerTest {
         verify(supplierService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: GET /api/suppliers/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer fournisseur par ID")
@@ -168,9 +161,7 @@ class SupplierControllerTest {
         verify(supplierService, times(1)).findById(999L);
     }
 
-    // ============================================================
-    // TEST: GET /api/suppliers/name/{name}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /name/{name} - Récupérer fournisseur par nom")
@@ -207,9 +198,7 @@ class SupplierControllerTest {
         verify(supplierService, times(1)).findByName("Test");
     }
 
-    // ============================================================
-    // TEST: DELETE /api/suppliers/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer un fournisseur")
@@ -235,9 +224,7 @@ class SupplierControllerTest {
         verify(supplierService, times(1)).deleteById(2L);
     }
 
-    // ============================================================
-    // TEST: PUT /api/suppliers/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour un fournisseur")

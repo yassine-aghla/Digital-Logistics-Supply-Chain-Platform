@@ -1,8 +1,6 @@
 package org.example.digitallogisticssupplychainplatform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.digitallogisticssupplychainplatform.exception.BusinessException;
-import org.example.digitallogisticssupplychainplatform.exception.ResourceNotFoundException;
 import org.example.digitallogisticssupplychainplatform.service.SalesOrderBusinessService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +13,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -228,7 +223,7 @@ class SalesOrderBusinessControllerTest {
     @Test
     @DisplayName("POST /cancel - Raison manquante")
     void testCancelOrderNoReason() throws Exception {
-        String requestBody = "{\"reason\": \"\"}"; // Empty reason
+        String requestBody = "{\"reason\": \"\"}";
 
         mockMvc.perform(post("/api/sales-orders/business/1/cancel")
                         .param("warehouseId", "1")

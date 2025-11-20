@@ -11,10 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -92,9 +88,6 @@ class ShipmentBusinessControllerTest {
         verify(shipmentBusinessService, times(1)).trackShipment("TRACK-003");
     }
 
-    // ============================================================
-    // TEST: POST /api/shipments/business/{shipmentId}/start-transit
-    // ============================================================
 
     @Test
     @DisplayName("✓ POST /start-transit - Démarrer le transit")
@@ -194,21 +187,17 @@ class ShipmentBusinessControllerTest {
                 .updateStatus(anyLong(), eq(ShipmentStatus.DELIVERED));
     }
 
-    // ============================================================
-    // ADDITIONAL: Combination tests
-    // ============================================================
 
     @Test
     @DisplayName("✓ POST /start-transit + /deliver - Cycle complet")
     void testShipmentCompleteLifecycle() throws Exception {
         doNothing().when(shipmentBusinessService).updateStatus(anyLong(), any(ShipmentStatus.class));
 
-        // Démarrer le transit
+
         mockMvc.perform(post("/api/shipments/business/1/start-transit"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.newStatus").value("IN_TRANSIT"));
 
-        // Livrer
         mockMvc.perform(post("/api/shipments/business/1/deliver"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.newStatus").value("DELIVERED"));

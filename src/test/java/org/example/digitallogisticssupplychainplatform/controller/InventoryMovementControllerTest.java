@@ -41,7 +41,7 @@ class InventoryMovementControllerTest {
 
     @BeforeEach
     void setUp() {
-        // Initialiser MockMvc sans charger le contexte Spring complet
+
         mockMvc = MockMvcBuilders.standaloneSetup(inventoryMovementController)
                 .build();
 
@@ -57,9 +57,6 @@ class InventoryMovementControllerTest {
 
     }
 
-    // ============================================================
-    // TEST: getAllMovements
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements - Récupérer tous les mouvements")
@@ -92,9 +89,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: getMovementById
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/{id} - Récupérer mouvement par ID")
@@ -123,9 +117,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findById(999L);
     }
 
-    // ============================================================
-    // TEST: getMovementsByInventory
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/inventory/{id} - Mouvements par inventaire")
@@ -143,9 +134,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findByInventoryId(1L);
     }
 
-    // ============================================================
-    // TEST: getMovementsByProduct
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/product/{id} - Mouvements par produit")
@@ -163,9 +151,7 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findByProductId(1L);
     }
 
-    // ============================================================
-    // TEST: getMovementsByWarehouse
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/warehouse/{id} - Mouvements par entrepôt")
@@ -183,9 +169,7 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findByWarehouseId(1L);
     }
 
-    // ============================================================
-    // TEST: getMovementsByType
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/type/{type} - Mouvements par type")
@@ -203,9 +187,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findByType("IN");
     }
 
-    // ============================================================
-    // TEST: getMovementsByDateRange
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /api/inventory-movements/date-range - Mouvements par plage de dates")
@@ -229,9 +210,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).findByDateRange(any(LocalDateTime.class), any(LocalDateTime.class));
     }
 
-    // ============================================================
-    // TEST: createMovement
-    // ============================================================
 
     @Test
     @DisplayName("✓ POST /api/inventory-movements - Créer un mouvement")
@@ -263,9 +241,7 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).createMovement(any(InventoryMovementDTO.class));
     }
 
-    // ============================================================
-    // TEST: deleteMovement
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /api/inventory-movements/{id} - Supprimer mouvement")
@@ -292,9 +268,6 @@ class InventoryMovementControllerTest {
         verify(movementService, times(1)).deleteMovement(999L);
     }
 
-    // ============================================================
-    // TEST: HTTP Status Codes
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET retourne OK (200)")
@@ -328,9 +301,6 @@ class InventoryMovementControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    // ============================================================
-    // TEST: Multiple operations
-    // ============================================================
 
     @Test
     @DisplayName("✓ Opérations multiples - Créer et récupérer")

@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,9 +68,7 @@ class ProductControllerTest {
         testProducts.add(testProduct2);
     }
 
-    // ============================================================
-    // TEST: GET /api/products
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET / - Récupérer tous les produits")
@@ -116,9 +113,7 @@ class ProductControllerTest {
         verify(productService, times(1)).findAllActive();
     }
 
-    // ============================================================
-    // TEST: GET /api/products/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer produit par ID")
@@ -145,9 +140,6 @@ class ProductControllerTest {
         verify(productService, times(1)).findById(999L);
     }
 
-    // ============================================================
-    // TEST: GET /api/products/code/{code}
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /code/{code} - Récupérer produit par code")
@@ -173,9 +165,7 @@ class ProductControllerTest {
         verify(productService, times(1)).findByCode("INVALID");
     }
 
-    // ============================================================
-    // TEST: POST /api/products
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST / - Créer un produit")
@@ -194,9 +184,6 @@ class ProductControllerTest {
         verify(productService, times(1)).save(any(ProductDTO.class));
     }
 
-    // ============================================================
-    // TEST: PUT /api/products/{id}
-    // ============================================================
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour un produit")
@@ -238,9 +225,6 @@ class ProductControllerTest {
         verify(productService, times(1)).update(eq(999L), any(ProductDTO.class));
     }
 
-    // ============================================================
-    // TEST: PATCH /api/products/{id}/activate
-    // ============================================================
 
     @Test
     @DisplayName("✓ PATCH /{id}/activate - Activer un produit")
@@ -261,9 +245,6 @@ class ProductControllerTest {
         verify(productService, times(1)).activate(1L);
     }
 
-    // ============================================================
-    // TEST: PATCH /api/products/{id}/deactivate
-    // ============================================================
 
     @Test
     @DisplayName("✓ PATCH /{id}/deactivate - Désactiver un produit")
@@ -296,9 +277,7 @@ class ProductControllerTest {
         verify(productService, times(1)).deactivate(999L);
     }
 
-    // ============================================================
-    // TEST: DELETE /api/products/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer un produit")

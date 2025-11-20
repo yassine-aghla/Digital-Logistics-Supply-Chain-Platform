@@ -1,7 +1,6 @@
 package org.example.digitallogisticssupplychainplatform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.digitallogisticssupplychainplatform.dto.ShipmentCreateDTO;
 import org.example.digitallogisticssupplychainplatform.dto.ShipmentDTO;
 import org.example.digitallogisticssupplychainplatform.dto.ShipmentUpdateDTO;
 import org.example.digitallogisticssupplychainplatform.service.ShipmentService;
@@ -67,9 +66,7 @@ class ShipmentControllerTest {
         testShipments.add(testShipment2);
     }
 
-    // ============================================================
-    // TEST: GET /api/shipments
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET / - Récupérer tous les expéditions")
@@ -97,9 +94,7 @@ class ShipmentControllerTest {
         verify(shipmentService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: GET /api/shipments/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer expédition par ID")
@@ -125,9 +120,7 @@ class ShipmentControllerTest {
         verify(shipmentService, times(1)).findById(2L);
     }
 
-    // ============================================================
-    // TEST: GET /api/shipments/tracking/{trackingNumber}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /tracking/{trackingNumber} - Récupérer par tracking number")
@@ -141,9 +134,7 @@ class ShipmentControllerTest {
         verify(shipmentService, times(1)).findByTrackingNumber("TRACK-001");
     }
 
-    // ============================================================
-    // TEST: GET /api/shipments/carrier/{carrierId}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /carrier/{carrierId} - Récupérer expéditions par transporteur")
@@ -161,9 +152,7 @@ class ShipmentControllerTest {
         verify(shipmentService, times(1)).findByCarrierId(1L);
     }
 
-    // ============================================================
-    // TEST: GET /api/shipments/status/{status}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /status/{status} - Récupérer expéditions par statut")
@@ -197,9 +186,7 @@ class ShipmentControllerTest {
     }
 
 
-    // ============================================================
-    // TEST: PUT /api/shipments/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour une expédition")
@@ -250,9 +237,7 @@ class ShipmentControllerTest {
         verify(shipmentService, times(1)).update(eq(2L), any(ShipmentUpdateDTO.class));
     }
 
-    // ============================================================
-    // TEST: DELETE /api/shipments/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer une expédition")

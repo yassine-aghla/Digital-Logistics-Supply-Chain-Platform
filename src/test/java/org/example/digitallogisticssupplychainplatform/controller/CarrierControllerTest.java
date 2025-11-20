@@ -63,9 +63,6 @@ class CarrierControllerTest {
         testCarriers.add(testCarrier2);
     }
 
-    // ============================================================
-    // TEST: POST /api/carriers
-    // ============================================================
 
     @Test
     @DisplayName("✓ POST / - Créer un transporteur")
@@ -115,9 +112,6 @@ class CarrierControllerTest {
         verify(carrierService, times(1)).save(any(CarrierDTO.class));
     }
 
-    // ============================================================
-    // TEST: GET /api/carriers
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET / - Récupérer tous les transporteurs")
@@ -159,9 +153,7 @@ class CarrierControllerTest {
         verify(carrierService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: GET /api/carriers/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer transporteur par ID")
@@ -187,9 +179,6 @@ class CarrierControllerTest {
         verify(carrierService, times(1)).findById(2L);
     }
 
-    // ============================================================
-    // TEST: PUT /api/carriers/{id}
-    // ============================================================
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour un transporteur")
@@ -229,10 +218,6 @@ class CarrierControllerTest {
 
         verify(carrierService, times(1)).update(eq(999L), any(CarrierDTO.class));
     }
-
-    // ============================================================
-    // TEST: PATCH /api/carriers/{id}/status
-    // ============================================================
 
     @Test
     @DisplayName("✓ PATCH /{id}/status - Mettre à jour le statut")
@@ -303,9 +288,7 @@ class CarrierControllerTest {
         verify(carrierService, times(1)).updateStatus(999L, "INACTIVE");
     }
 
-    // ============================================================
-    // TEST: DELETE /api/carriers/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer un transporteur")

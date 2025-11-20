@@ -242,7 +242,7 @@ class ShipmentServiceTest {
 
         when(carrierRepository.findById(1L)).thenReturn(Optional.of(testCarrier));
         when(shipmentRepository.existsByTrackingNumber("TRACK-002")).thenReturn(false);
-        when(shipmentMapper.toEntity(eq(createDTO), eq(testCarrier))).thenReturn(testShipment);
+        when(shipmentMapper.toEntity(createDTO, testCarrier)).thenReturn(testShipment);
         when(shipmentRepository.save(any(Shipment.class))).thenReturn(testShipment);
         when(shipmentMapper.toDTO(testShipment)).thenReturn(testShipmentDTO);
 

@@ -65,9 +65,7 @@ class InventoryControllerTest {
         testInventories.add(testInventory2);
     }
 
-    // ============================================================
-    // TEST: GET /api/inventories
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /all - Récupérer tous les inventaires")
@@ -97,9 +95,7 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: GET /api/inventories/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer inventaire par ID")
@@ -126,9 +122,7 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).findById(999L);
     }
 
-    // ============================================================
-    // TEST: POST /api/inventories
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST / - Créer un inventaire")
@@ -163,9 +157,6 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).save(any(InventoryDTO.class));
     }
 
-    // ============================================================
-    // TEST: PUT /api/inventories/{id}
-    // ============================================================
 
     @Test
     @DisplayName("✓ PUT /{id} - Mettre à jour un inventaire")
@@ -209,9 +200,6 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).update(eq(999L), any(InventoryDTO.class));
     }
 
-    // ============================================================
-    // TEST: PATCH /api/inventories/{id}/quantities
-    // ============================================================
 
     @Test
     @DisplayName("✓ PATCH /{id}/quantities - Mettre à jour les quantités")
@@ -249,9 +237,6 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).updateQuantities(999L, 200, 50);
     }
 
-    // ============================================================
-    // TEST: DELETE /api/inventories/{id}
-    // ============================================================
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer un inventaire")

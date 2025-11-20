@@ -65,9 +65,7 @@ class PurchaseOrderControllerTest {
         testOrders.add(testOrder2);
     }
 
-    // ============================================================
-    // TEST: POST /api/purchase-orders
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST / - Créer une commande d'achat")
@@ -109,9 +107,7 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).createPurchaseOrder(any(CreatePurchaseOrderRequest.class));
     }
 
-    // ============================================================
-    // TEST: GET /api/purchase-orders
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET / - Récupérer toutes les commandes d'achat")
@@ -139,9 +135,7 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).getAllPurchaseOrders();
     }
 
-    // ============================================================
-    // TEST: GET /api/purchase-orders/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /{id} - Récupérer commande d'achat par ID")
@@ -165,9 +159,6 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).getPurchaseOrderById(2L);
     }
 
-    // ============================================================
-    // TEST: PUT /api/purchase-orders/{id}/status
-    // ============================================================
 
     @Test
     @DisplayName("✓ PUT /{id}/status - Mettre à jour le statut")
@@ -217,9 +208,7 @@ class PurchaseOrderControllerTest {
                 .updatePurchaseOrderStatus(eq(2L), any(UpdatePurchaseOrderStatusRequest.class));
     }
 
-    // ============================================================
-    // TEST: GET /api/purchase-orders/status/{status}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /status/{status} - Récupérer par statut DRAFT")
@@ -251,9 +240,7 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).getPurchaseOrdersByStatus("CONFIRMED");
     }
 
-    // ============================================================
-    // TEST: GET /api/purchase-orders/supplier/{supplierId}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /supplier/{supplierId} - Récupérer par fournisseur")
@@ -285,9 +272,6 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).getPurchaseOrdersBySupplier(2L);
     }
 
-    // ============================================================
-    // TEST: GET /api/purchase-orders/warehouse-manager/{warehouseManagerId}
-    // ============================================================
 
     @Test
     @DisplayName("✓ GET /warehouse-manager/{warehouseManagerId} - Récupérer par manager")
@@ -319,9 +303,7 @@ class PurchaseOrderControllerTest {
         verify(purchaseOrderService, times(1)).getPurchaseOrdersByWarehouseManager(2L);
     }
 
-    // ============================================================
-    // TEST: DELETE /api/purchase-orders/{id}
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ DELETE /{id} - Supprimer une commande d'achat")

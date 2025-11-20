@@ -52,9 +52,6 @@ class WareHouseControllerTest {
         testWareHouseDto.setActive(true);
     }
 
-    // ============================================================
-    // TEST: createWareHouse - SUCCESS CASE
-    // ============================================================
 
     @Test
     @DisplayName("✓ POST /api/wareHouse - Créer un entrepôt")
@@ -72,9 +69,7 @@ class WareHouseControllerTest {
         verify(wareHouseService, times(1)).save(any(WareHouseDto.class));
     }
 
-    // ============================================================
-    // TEST: getAllWarehouses
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /api/wareHouse - Récupérer tous les entrepôts")
@@ -107,9 +102,7 @@ class WareHouseControllerTest {
         verify(wareHouseService, times(1)).findAll();
     }
 
-    // ============================================================
-    // TEST: getWareHouse by ID - SUCCESS CASE
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ GET /api/wareHouse/{id} - Récupérer entrepôt par ID")
@@ -125,9 +118,6 @@ class WareHouseControllerTest {
         verify(wareHouseService, times(1)).findById(1L);
     }
 
-    // ============================================================
-    // TEST: deleteWareHouse
-    // ============================================================
 
     @Test
     @DisplayName("✓ DELETE /api/wareHouse/{id} - Supprimer entrepôt")
@@ -142,9 +132,7 @@ class WareHouseControllerTest {
         verify(wareHouseService, times(1)).deleteById(1L);
     }
 
-    // ============================================================
-    // TEST: HTTP Methods and Status Codes
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ POST retourne CREATED (201)")
@@ -177,9 +165,7 @@ class WareHouseControllerTest {
                 .andExpect(status().isOk());
     }
 
-    // ============================================================
-    // TEST: Response Content Type
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ Réponses au format JSON")
@@ -192,9 +178,7 @@ class WareHouseControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
-    // ============================================================
-    // TEST: Create and Retrieve
-    // ============================================================
+
 
     @Test
     @DisplayName("✓ Opérations multiples - Créer et récupérer")
