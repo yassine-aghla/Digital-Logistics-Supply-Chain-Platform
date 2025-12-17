@@ -27,7 +27,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests - CarrierService")
 class CarrierServiceTest {
-
     @Mock
     private CarrierRepository carrierRepository;
 

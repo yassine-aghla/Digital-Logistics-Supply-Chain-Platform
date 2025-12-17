@@ -16,15 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-/**
- * Configuration Spring Security pour Basic Auth
- *
- * Cette configuration met en place :
- * - Basic Authentication (sans sessions - stateless)
- * - BCrypt pour le hashing des mots de passe
- * - Gestion des rôles (ADMIN, WAREHOUSE_MANAGER, CLIENT)
- * - Protection des endpoints selon les rôles
- */
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -43,7 +35,7 @@ public class SecurityConfig {
 
 
 
-                        // Endpoints WAREHOUSE_MANAGER
+
                         .requestMatchers(HttpMethod.GET, "/api/inventory/**").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/inventory/**").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
                         .requestMatchers(HttpMethod.PUT, "/api/inventory/**").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
@@ -53,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/shipments/**").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
                         .requestMatchers(HttpMethod.PUT, "/api/shipments/**").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
 
-                        // Endpoints CLIENT
+
                         .requestMatchers(HttpMethod.GET, "/api/products/**").hasAnyRole("ADMIN", "CLIENT", "WAREHOUSE_MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
@@ -76,7 +68,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                .cors(cors -> cors.disable()); // À remplacer par une config CORS appropriée
+                .cors(cors -> cors.disable());
 
         return http.build();
     }
@@ -97,6 +89,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12); // 12 = coût de calcul (4-31)
+        return new BCryptPasswordEncoder(12);
     }
 }
